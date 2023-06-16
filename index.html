@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linked List Visualization</title>
+  <script src="script.js" defer="defer"></script>
+  <script src="js/LinkedList.js" defer="defer"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+  <div class="container">
+    <section class="header">
+      <i class="fa-solid fa-sun" id="btn-menu"></i>
+      <h1 class="header-title">Linked List Visualization</h1>
+      <i class="fa-solid fa-bars" id="btn-theme"></i>
+    </section>
+    <section class="linked-list">
+      <div class="node">1</div>
+      <i class="fa-solid fa-arrow-right"></i>
+    </section>
+    <section class="options">
+      <div class="option-set">
+        <button class="option-btn">Set</button>
+        <input type="number" placeholder="Index" min="0">
+        <input type="number" placeholder="Data">
+      </div>
+      <div class="option-insert">
+        <button class="options-btn">Insert</button>
+        <input type="number" placeholder="Index" min="0">
+        <input type="number" placeholder="Data">
+      </div>
+      <div class="option-add">
+        <button class="option-btn">Add</button>
+        <input type="number" placeholder="Index" min="0">
+        <input type="number" placeholder="Data">
+      </div>
+      <div class="option-remove">
+        <button class="option-btn option-btn-red">Remove</button>
+        <input type="number" placeholder="Index" min="0">
+        <input type="number" placeholder="Data">
+      </div>
+    </section>
+  </div>
+</body>
+</html>
