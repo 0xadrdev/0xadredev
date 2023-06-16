@@ -1,3 +1,5 @@
+export {LinkedList, Node};
+
 class Node {
   constructor(data) {
     this.data = data;
@@ -116,27 +118,27 @@ class LinkedList {
 
 
 
-let lista = new LinkedList();
+// let lista = new LinkedList();
 
-console.log(lista.toString())
+// console.log(lista.toString())
 
-let nuevoNodo = new Node(5);
-lista.add(nuevoNodo);
+// let nuevoNodo = new Node(5);
+// lista.add(nuevoNodo);
 
-nuevoNodo = new Node(3);
-lista.add(nuevoNodo);
+// nuevoNodo = new Node(3);
+// lista.add(nuevoNodo);
 
-nuevoNodo = new Node(2);
-lista.add(nuevoNodo);
+// nuevoNodo = new Node(2);
+// lista.add(nuevoNodo);
 
-nuevoNodo = new Node(1);
-lista.add(nuevoNodo);
+// nuevoNodo = new Node(1);
+// lista.add(nuevoNodo);
 
-console.log(lista.toString());
+// console.log(lista.toString());
 
-console.log(lista.removeAtIndex(0))
-console.log(lista.length())
+// console.log(lista.removeAtIndex(0))
+// console.log(lista.length())
 
-console.log(lista.toString());
+// console.log(lista.toString());
 
 

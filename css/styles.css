@@ -53,14 +53,14 @@ input {
   display: flex;
   align-items: center;
   margin-top: 40px;
-  gap: 10px;
+  overflow-x: auto;
+  padding: 0 0 20px;
 }
 
 .node-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
 }
 
 .node-data {
@@ -78,6 +78,7 @@ input {
 
 .node-arrow {
   font-size: 3rem;
+  margin: 0 20px;
 }
 
 /* Options */
@@ -95,12 +96,10 @@ input {
   padding: 10px 20px;
   font-size: 1.4rem;
   font-weight: 600;
-  opacity: 1;
-  transition: opacity 1000ms;
 }
 
 .option-btn:hover {
-  opacity: .5;
+  opacity: .75;
 }
 
 .option-input {
