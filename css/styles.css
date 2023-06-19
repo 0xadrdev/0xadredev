@@ -75,6 +75,14 @@ input {
   align-items: center;
 }
 
+.node-data.next-node-data {
+  animation: nextNodeAnimation 800ms 1;
+}
+
+.node-data.new-node-data {
+  animation: newNodeAnimation 800ms 1;
+}
+
 @keyframes newNodeAnimation {
   0% {
     transform: scale(0);
@@ -104,6 +112,17 @@ input {
   margin: 0 20px;
   position: relative;
   z-index: -100;
+  opacity: 1;
+}
+
+.node-arrow.next-node-arrow {
+  animation: nextArrowAnimation 800ms 1 forwards;
+  animation-delay: 850ms;
+}
+
+.node-arrow.new-node-arrow {
+  animation: newArrowAnimation 800ms 1;
+  animation-delay: 850ms;
 }
 
 @keyframes newArrowAnimation {
