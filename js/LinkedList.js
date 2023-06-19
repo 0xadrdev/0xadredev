@@ -1,3 +1,4 @@
+import {nextNodeAnimation, newNodeAnimation} from './animations.js'
 export {LinkedList, Node};
 
 class Node {
@@ -14,20 +15,53 @@ class LinkedList {
     this.size = 0;
   }
 
+  // add(newNode) {
+  //   let aux = this.first; 
+  //   if (aux == null) {
+  //     this.first = newNode;
+  //     this.size++;
+  //     return true; 
+  //   }
+  //   while (aux.next != null) {
+  //     aux = aux.next;
+  //   }
+  //   aux.next = newNode;
+  //   this.size++
+  //   return true;
+  // }
+
   add(newNode) {
     let aux = this.first; 
+    let previous = null;
     if (aux == null) {
       this.first = newNode;
       this.size++;
+      newNodeAnimation(this.first);
       return true; 
     }
-    while (aux.next != null) {
-      aux = aux.next;
+
+    const timer = ms => new Promise(res => setTimeout(res, ms))
+
+    async function load () { 
+      while (aux.next != null) {
+        nextNodeAnimation(aux);
+        aux = aux.next;
+        await timer(1660);
+      }
     }
-    aux.next = newNode;
+
+    load();
+    
+    setTimeout(() => {
+      aux.next = newNode;
+      nextNodeAnimation(aux);
+      setTimeout(() => newNodeAnimation(newNode), 1650); // 800 + 850 = 1650
+    }, (this.length() - 1) * 1660);
+    
     this.size++
     return true;
   }
+
 
   set(index, data) {
     if (this.size == 0 || index < 0 || index >= this.size) return false;
@@ -132,6 +166,15 @@ class LinkedList {
 // lista.add(nuevoNodo);
 
 // nuevoNodo = new Node(1);
+// lista.add(nuevoNodo);
+
+// nuevoNodo = new Node(10);
+// lista.add(nuevoNodo);
+
+// nuevoNodo = new Node(20);
+// lista.add(nuevoNodo);
+
+// nuevoNodo = new Node(30);
 // lista.add(nuevoNodo);
 
 // console.log(lista.toString());
