@@ -42,18 +42,24 @@ input {
 
 /* Linked List */
 
-.linked-list-container {
+.flex-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: calc(100% - 81px);
 }
 
+.linked-list-container {
+  overflow-x: auto;
+  scrollbar-color: black #eee;
+  scrollbar-width: thin;
+}
+
 .linked-list {
   display: flex;
   align-items: center;
-  margin-top: 40px;
-  /* overflow-x: auto; */
+  /* margin: 40px 0; */
+  padding: 30px 20px;
 }
 
 .node-container {
