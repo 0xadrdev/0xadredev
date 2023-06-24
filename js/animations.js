@@ -1,5 +1,5 @@
 
-export {nextNodeAnimation, newNodeAnimation};
+export {nextNodeAnimation, newNodeAnimation, setNodeAnimation};
 
 const linkedListContainer = document.getElementById("linked-list-container")
 
@@ -30,4 +30,21 @@ function newNodeAnimation(nodeContainer) {
     nodeArrow.classList.remove("new-node-arrow");
     nodeArrow.style.setProperty("opacity", "1");
   }, 1650)
+}
+
+function setNodeAnimation(nodeContainer, data) {
+  let newDataSpan= Object.assign(document.createElement("span"), {className: "data show-data", innerText: data});
+  let nodeData = nodeContainer.querySelector(".node-data");
+  let dataSpan = nodeContainer.querySelector(".data");
+  dataSpan.classList.add("remove-data");
+  setTimeout(() => {
+    dataSpan.remove();
+    nodeData.appendChild(newDataSpan);
+  }, 1000);
+  setTimeout(() => {
+    newDataSpan.style.setProperty("transform", "scale(1)");
+    newDataSpan.classList.remove("show-data");
+  }, 2000);
+  
+  
 }

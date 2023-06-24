@@ -1,4 +1,4 @@
-import {nextNodeAnimation, newNodeAnimation} from './animations.js'
+import {nextNodeAnimation, newNodeAnimation, setNodeAnimation} from './animations.js'
 export {LinkedList, Node};
 
 class Node {
@@ -14,21 +14,6 @@ class LinkedList {
     this.first = null;
     this.size = 0;
   }
-
-  // add(newNode) {
-  //   let aux = this.first; 
-  //   if (aux == null) {
-  //     this.first = newNode;
-  //     this.size++;
-  //     return true; 
-  //   }
-  //   while (aux.next != null) {
-  //     aux = aux.next;
-  //   }
-  //   aux.next = newNode;
-  //   this.size++
-  //   return true;
-  // }
 
   add(newNode) {
     let aux = this.first; 
@@ -64,6 +49,9 @@ class LinkedList {
 
 
   set(index, data) {
+    console.log(data)
+    setNodeAnimation(this.first, data);
+    return;
     if (this.size == 0 || index < 0 || index >= this.size) return false;
     let previous = this.first;
     let current = previous.next;
