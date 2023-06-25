@@ -1,4 +1,4 @@
-import {nextNodeAnimation, newNodeAnimation, setNodeAnimation} from './animations.js'
+import {nextNodeAnimation, newNodeAnimation, setNodeAnimation, insertNodeAnimation} from './animations.js'
 export {LinkedList, Node};
 
 class Node {
@@ -41,12 +41,55 @@ class LinkedList {
     return true;
   }
 
+  // add(newNode) {
+  //   let aux = this.first; 
+  //   if (aux == null) {
+  //     this.first = newNode;
+  //     this.size++;
+  //     return true; 
+  //   }
+  //   while (aux.next != null) {
+  //     aux = aux.next; 
+  //   }
+  //   aux.next = newNode;
+  //   this.size++
+  //   return true;
+  // }
+
+  insert(index, newNode) {
+    let previous = this.first; 
+    let current = previous.next;
+    if (index == 0) {
+      let aux = this.first;
+      newNode.next = this.first;
+      this.first = newNode;
+      this.size++;
+      insertNodeAnimation(aux, newNode);
+      return true;
+    }
+    let pos = 1;
+    while (current != null) {
+      if (index == pos) {
+        previous.next = newNode;
+        newNode.next = current;
+        this.size++;
+        return true;
+      }
+      pos++;
+      previous = current; 
+      current = current.next; 
+    }
+    if (pos == index) {
+      previous.next = newNode;
+      this.size++;
+    }
+    return false;
+  }
 
   set(index, data) {
     let previous = this.first;
     let current = previous.next;
     if (index == 0) {
-      this.first.data = data;
       setNodeAnimation(this.first, data);
       return true;
     }
@@ -64,7 +107,6 @@ class LinkedList {
       previous = current; 
       current = current.next;
     }
-
     return false;
   }
 
@@ -150,22 +192,7 @@ class LinkedList {
 // lista.add(nuevoNodo);
 
 // nuevoNodo = new Node(1);
-// lista.add(nuevoNodo);
-
-// nuevoNodo = new Node(10);
-// lista.add(nuevoNodo);
-
-// nuevoNodo = new Node(20);
-// lista.add(nuevoNodo);
-
-// nuevoNodo = new Node(30);
-// lista.add(nuevoNodo);
+// lista.insert(3, nuevoNodo);
 
 // console.log(lista.toString());
-
-// console.log(lista.removeAtIndex(0))
-// console.log(lista.length())
-
-// console.log(lista.toString());
-
 

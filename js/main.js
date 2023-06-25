@@ -1,4 +1,4 @@
-import { LinkedList, Node } from "./LinkedList.js";
+import { LinkedList } from "./LinkedList.js";
 
 // Create the list. 
 
@@ -41,7 +41,19 @@ export function setElement(index, data) {
     return setError("Data must be a number. ");
   }
   removeError();
-  console.log(linkedList.length());
   linkedList.set(index, data);
+}
+
+export function insertElement(index, data) {
+  if (index.trim() == "") {
+    return setError("Index must be a number. ");
+  } else if (index < 0 || index >= linkedList.length()) {
+    return setError("Index out of bounds. ");
+  } else if (data.trim() == ""){
+    return setError("Data must be a number. ");
+  }
+  removeError();
+  let newNode = createNode(data);
+  linkedList.insert(index, newNode);
 }
 

@@ -29,11 +29,13 @@ function newNodeAnimation(nodeContainer) {
     nodeData.classList.remove("new-node-data");
     nodeArrow.classList.remove("new-node-arrow");
     nodeArrow.style.setProperty("opacity", "1");
-  }, 1650)
+  }, 1650);
 }
 
+// Set Animation
+
 function setNodeAnimation(nodeContainer, data) {
-  let newDataSpan= Object.assign(document.createElement("span"), {className: "data show-data", innerText: data});
+  let newDataSpan = Object.assign(document.createElement("span"), {className: "data show-data", innerText: data});
   let nodeData = nodeContainer.querySelector(".node-data");
   let dataSpan = nodeContainer.querySelector(".data");
   dataSpan.classList.add("remove-data");
@@ -45,6 +47,37 @@ function setNodeAnimation(nodeContainer, data) {
     newDataSpan.style.setProperty("transform", "scale(1)");
     newDataSpan.classList.remove("show-data");
   }, 2000);
-  
-  
+}
+
+// Insert Animation 
+
+export function insertNodeAnimation(previousNode, nodeContainer) {
+  let nodeData = nodeContainer.querySelector(".node-data");
+  let nodeArrow = nodeContainer.querySelector(".node-arrow");
+  nodeData.classList.add("new-node-data");
+  nodeArrow.classList.add("new-node-arrow");
+
+  // previousNode.style.setProperty("transform", "translate(189px)");
+
+  let aux = previousNode; 
+  while (aux != null) {
+    aux.style.setProperty("transition", "transform 500ms");
+    aux.style.setProperty("transform", "translate(189px)");
+    aux = aux.next;
+  } 
+  aux = previousNode;
+  setTimeout(() => {
+    while (aux != null) {
+      aux.style.setProperty("transition", "none");
+      aux.style.setProperty("transform", "translate(0)");
+      aux = aux.next;
+    } 
+    linkedListContainer.insertBefore(nodeContainer, previousNode);
+  }, 500);
+
+  setTimeout(() => {
+    nodeData.classList.remove("new-node-data");
+    nodeArrow.classList.remove("new-node-arrow");
+    nodeArrow.style.setProperty("opacity", "1");
+  }, 1650 + 500);
 }

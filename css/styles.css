@@ -66,6 +66,8 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* transform: translate(0);
+  transition: transform 500ms; */
 }
 
 .node-data {
