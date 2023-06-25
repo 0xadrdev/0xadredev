@@ -43,25 +43,28 @@ class LinkedList {
 
 
   set(index, data) {
-    setNodeAnimation(this.first, data);
-    return;
-    if (this.size == 0 || index < 0 || index >= this.size) return false;
     let previous = this.first;
     let current = previous.next;
-    if (index === 0) {
-      this.first.data = 0;
+    if (index == 0) {
+      this.first.data = data;
+      setNodeAnimation(this.first, data);
       return true;
     }
     let pos = 1;
+    nextNodeAnimation(this.first);
     while (current != null) {
-      if (pos === index) {
-        current.data = data;
-        return true;
+      if (pos == index) {
+        setTimeout(() => {
+          setNodeAnimation(current, data)
+        }, pos * 1660);
+        return;
       }
+      setTimeout(nextNodeAnimation, 1660 * pos, current);
       pos++;
       previous = current; 
       current = current.next;
     }
+
     return false;
   }
 

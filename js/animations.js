@@ -4,7 +4,6 @@ export {nextNodeAnimation, newNodeAnimation, setNodeAnimation};
 const linkedListContainer = document.getElementById("linked-list-container")
 
 function nextNodeAnimation(nodeContainer) {
-  console.log(nodeContainer);
   let nodeData = nodeContainer.querySelector(".node-data");
   let nodeArrow = nodeContainer.querySelector(".node-arrow");
 
