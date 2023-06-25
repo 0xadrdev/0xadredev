@@ -90,5 +90,20 @@
   100% {
     transform: scale(1);
   }
+}
 
+/* Error animation */
+
+@keyframes errorAnimation {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  0% {
+    transform: scale(1);
+  }
 }

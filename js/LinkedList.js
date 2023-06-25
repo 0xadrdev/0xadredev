@@ -43,7 +43,6 @@ class LinkedList {
 
 
   set(index, data) {
-    console.log(data)
     setNodeAnimation(this.first, data);
     return;
     if (this.size == 0 || index < 0 || index >= this.size) return false;
