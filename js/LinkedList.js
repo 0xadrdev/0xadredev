@@ -17,7 +17,6 @@ class LinkedList {
 
   add(newNode) {
     let aux = this.first; 
-    let previous = null;
     if (aux == null) {
       this.first = newNode;
       this.size++;
@@ -25,18 +24,13 @@ class LinkedList {
       return true; 
     }
 
-    const timer = ms => new Promise(res => setTimeout(res, ms))
-
-    async function load () { 
-      while (aux.next != null) {
-        nextNodeAnimation(aux);
-        aux = aux.next;
-        await timer(1660);
-      }
+    let i = 0;
+    while (aux.next != null) {
+      setTimeout(nextNodeAnimation, 1660 * i, aux);
+      aux = aux.next; 
+      i++;
     }
 
-    load();
-    
     setTimeout(() => {
       aux.next = newNode;
       nextNodeAnimation(aux);
