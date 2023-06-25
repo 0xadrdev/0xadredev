@@ -68,13 +68,16 @@ class LinkedList {
       return true;
     }
     let pos = 1;
+    nextNodeAnimation(this.first);
     while (current != null) {
       if (index == pos) {
         previous.next = newNode;
         newNode.next = current;
         this.size++;
+        setTimeout(insertNodeAnimation, 1660 * pos, current, newNode);
         return true;
       }
+      setTimeout(nextNodeAnimation, 1660 * pos, current);
       pos++;
       previous = current; 
       current = current.next; 
