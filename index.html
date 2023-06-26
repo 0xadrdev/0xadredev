@@ -49,9 +49,13 @@
         <input class="option-input" id="data-input" type="number" placeholder="Data">
       </div>
       <div class="option-remove">
-        <button class="option-btn option-btn-red">Remove</button>
-        <input class="option-input" type="number" placeholder="Index">
-        <input class="option-input" type="number" placeholder="Data">
+        <button class="option-btn option-btn-red" id="remove-btn">Remove <i id="remove-btn-icon" class="fa-solid fa-gear"></i></button>
+        <div class="selects-container" id="selects-container">
+          <button class="select-btn" id="select-btn-index">Index</button>
+          <button class="select-btn" id="select-btn-data">Data</button>
+        </div>
+        <input class="option-input option-input-remove" type="number" placeholder="Index">
+        <input class="option-input option-input-remove" type="number" placeholder="Data">
       </div>
     </section>
   </div>
