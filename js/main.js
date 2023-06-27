@@ -20,7 +20,7 @@ function removeError() {
   errorContainer.classList.remove("show");
 }
 
-function setError(errorText) {
+export function setError(errorText) {
   errorContainer.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> ${errorText}`;
   errorContainer.classList.add("show");
 }
@@ -55,5 +55,19 @@ export function insertElement(index, data) {
   removeError();
   let newNode = createNode(data);
   linkedList.insert(index, newNode);
+}
+
+export function removeElementAtIndex(index) {
+  if (index.trim() == "") {
+    return setError("Index must be a number. ");
+  } else if (index < 0 || index >= linkedList.length()) {
+    return setError("Index out of bounds. ");
+  } 
+  removeError();
+  linkedList.removeAtIndex(index);
+}
+
+export function removeElementsWithData(data) {
+  console.log("removeElementsWithData");
 }
 

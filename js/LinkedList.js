@@ -1,4 +1,4 @@
-import {nextNodeAnimation, newNodeAnimation, setNodeAnimation, insertNodeAnimation} from './animations.js'
+import {nextNodeAnimation, newNodeAnimation, setNodeAnimation, insertNodeAnimation, removeNodeAnimation} from './animations.js'
 export {LinkedList, Node};
 
 class Node {
@@ -113,6 +113,32 @@ class LinkedList {
     return false;
   }
 
+  removeAtIndex(index) {
+    let previous = this.first; 
+    let current = previous.next;
+    if (index == 0) {
+      removeNodeAnimation(this.first);
+      this.first = this.first.next;
+      this.size--;
+      return true;
+    }
+    let pos = 1; 
+    nextNodeAnimation(this.first);
+    while (current != null) {
+      if (pos == index) {
+        setTimeout(removeNodeAnimation, pos * 1660, current);
+        previous.next = current.next;
+        this.size--;
+        return true;
+      }
+      setTimeout(nextNodeAnimation, 1660 * pos, current);
+      pos++;
+      previous = current;
+      current = current.next;
+    }
+    return false;
+  }
+
   remove(data) {
     if (this.size == 0) return false;
     let previous = this.first;
@@ -129,29 +155,6 @@ class LinkedList {
         return true;
       }
       previous = current; 
-      current = current.next;
-    }
-    return false;
-  }
-
-  removeAtIndex(index) {
-    if (this.size == 0 || index < 0 || index >= this.size) return false;
-    let previous = this.first; 
-    let current = previous.next;
-    if (index == 0) {
-      this.first = this.first.next;
-      this.size--;
-      return true;
-    }
-    let pos = 1; 
-    while (current != null) {
-      if(pos == index) {
-        previous.next = current.next;
-        this.size--;
-        return true;
-      }
-      pos++;
-      previous = current;
       current = current.next;
     }
     return false;

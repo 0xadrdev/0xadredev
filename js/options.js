@@ -1,4 +1,4 @@
-import {addElement, setElement, insertElement} from "./main.js";
+import {addElement, setElement, insertElement, setError, removeElementsWithData, removeElementAtIndex} from "./main.js";
 
 const addButton = document.getElementById("add-btn");
 const setButton = document.getElementById("set-btn");
@@ -68,7 +68,13 @@ removeButtonIcon.addEventListener("click", e => {
 })
 
 removeButton.addEventListener("click", e => {
-  // console.log("ENTRO")
+  if (!removeIndexInput.offsetParent && !removeDataInput.offsetParent) {
+    setError("You must choose an option to remove nodes. ")
+  } else if (removeIndexInput.offsetParent) {
+    removeElementAtIndex(removeIndexInput.value);
+  } else {
+    removeElementsWithData(removeDataInput.value);
+  }
 });
 
 

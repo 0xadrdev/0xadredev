@@ -81,3 +81,30 @@ export function insertNodeAnimation(previousNode, nodeContainer) {
     nodeArrow.style.setProperty("opacity", "1");
   }, 1650 + 500);
 }
+
+// Remove Animation 
+
+export function removeNodeAnimation(nodeContainer) {
+  let aux = nodeContainer.next;
+  let nodeData = nodeContainer.querySelector(".node-data");
+  let nodeArrow = nodeContainer.querySelector(".node-arrow");
+  nodeData.classList.add("remove-node");
+  nodeArrow.classList.add("remove-node");
+  setTimeout(() => nodeContainer.remove(), 1000);
+  setTimeout(() => {
+    while (aux != null) {
+      aux.style.setProperty("transition", "none");
+      aux.style.setProperty("transform", "translate(189px)");
+      console.log(aux);
+      aux = aux.next;
+    }
+  }, 1000);
+  setTimeout(() => {
+    aux = nodeContainer.next;
+    while (aux != null) {
+      aux.style.setProperty("transition", "transform 500ms");
+      aux.style.setProperty("transform", "translate(0)");
+      aux = aux.next;
+    }
+  }, 1050);
+} 
