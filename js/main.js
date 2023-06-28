@@ -68,6 +68,12 @@ export function removeElementAtIndex(index) {
 }
 
 export function removeElementsWithData(data) {
-  console.log("removeElementsWithData");
+  if (data.trim() == "") {
+    return setError("Index must be a number. ");
+  } else if (linkedList.length() == 0) {
+    return setError("List is empty. ");
+  }
+  removeError();
+  linkedList.remove(data);
 }
 

@@ -95,7 +95,6 @@ export function removeNodeAnimation(nodeContainer) {
     while (aux != null) {
       aux.style.setProperty("transition", "none");
       aux.style.setProperty("transform", "translate(189px)");
-      console.log(aux);
       aux = aux.next;
     }
   }, 1000);

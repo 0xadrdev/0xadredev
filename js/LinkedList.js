@@ -41,21 +41,6 @@ class LinkedList {
     return true;
   }
 
-  // add(newNode) {
-  //   let aux = this.first; 
-  //   if (aux == null) {
-  //     this.first = newNode;
-  //     this.size++;
-  //     return true; 
-  //   }
-  //   while (aux.next != null) {
-  //     aux = aux.next; 
-  //   }
-  //   aux.next = newNode;
-  //   this.size++
-  //   return true;
-  // }
-
   insert(index, newNode) {
     let previous = this.first; 
     let current = previous.next;
@@ -140,20 +125,32 @@ class LinkedList {
   }
 
   remove(data) {
-    if (this.size == 0) return false;
     let previous = this.first;
     let current = previous.next;
-    if (previous.data === data) {
+    if (this.getData(previous) == data) {
+      removeNodeAnimation(this.first);
       this.first = this.first.next;
       this.size--;
-      return true;
+    } else {
+      nextNodeAnimation(this.first);
     }
+    let pos = 1;
     while (current != null) {
-      if (current.data === data) {
-        previous.next = current.next;
+      if (this.getData(current) == data) {
+        setTimeout(removeNodeAnimation, pos * 1660, current);
+        if (current == this.first) {
+          setTimeout(current => {
+            this.first = current.next;
+          }, pos * 1660, current);
+        } else {
+          setTimeout((previous, current) => {
+            previous.next = current.next; 
+          }, pos * 1660, previous, current);
+        }
         this.size--;
-        return true;
-      }
+      } 
+      setTimeout(nextNodeAnimation, 1660 * pos, current);
+      pos++;
       previous = current; 
       current = current.next;
     }
@@ -167,6 +164,11 @@ class LinkedList {
 
   length() {
    return this.size;
+  }
+
+  getData(node) {
+    let nodeData = node.querySelector(".data");
+    return nodeData.innerText;
   }
 
   toString() {
