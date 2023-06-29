@@ -137,7 +137,6 @@ class LinkedList {
     let pos = 1;
     while (current != null) {
       if (this.getData(current) == data) {
-        setTimeout(removeNodeAnimation, pos * 1660, current);
         if (current == this.first) {
           setTimeout(current => {
             this.first = current.next;
@@ -147,12 +146,15 @@ class LinkedList {
             previous.next = current.next; 
           }, pos * 1660, previous, current);
         }
+        setTimeout(removeNodeAnimation, pos * 1660, current);
+        current = current.next;
         this.size--;
-      } 
-      setTimeout(nextNodeAnimation, 1660 * pos, current);
+      } else {
+        setTimeout(nextNodeAnimation, 1660 * pos, current);
+        previous = current; 
+        current = current.next;
+      }
       pos++;
-      previous = current; 
-      current = current.next;
     }
     return false;
   }
@@ -169,6 +171,14 @@ class LinkedList {
   getData(node) {
     let nodeData = node.querySelector(".data");
     return nodeData.innerText;
+  }
+
+  toConsole() {
+    let aux = this.first; 
+    while (aux != null) {
+      console.log(aux);
+      aux = aux.next;
+    }
   }
 
   toString() {
