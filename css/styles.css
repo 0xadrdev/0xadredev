@@ -7,22 +7,25 @@
   /* outline: 1px solid red; */
 }
 
+:root {
+  --nodeAnimationDuration: 800ms;
+  --pointerAnimationDuration: 800ms;
+  --deleteAnimationDuration: 800ms;
+}
+
 /* General */
 
 body {
   font-family: 'Roboto', sans-serif;
   line-height: 1.3;
   height: 100vh;
-  position: relative;
+  background-color: #fff;
+  transition: background-color 1000ms;
 }
 
-/* body::after {
-  content: "";
-  background-color: #000;
-  inset: 0;
-  opacity: .1;
-  position: absolute;
-} */
+body.show-menu {
+  background-color: rgba(0 0 0 / .1)
+}
 
 input {
   display: block;
@@ -93,11 +96,11 @@ input {
 }
 
 .node-data.next-node-data {
-  animation: nextNodeAnimation 800ms 1;
+  animation: nextNodeAnimation var(--nodeAnimationDuration) 1;
 }
 
 .node-data.new-node-data {
-  animation: newNodeAnimation 800ms 1;
+  animation: newNodeAnimation var(--nodeAnimationDuration) 1;
 }
 
 .node-data .data.remove-data {
@@ -117,13 +120,13 @@ input {
 }
 
 .node-arrow.next-node-arrow {
-  animation: nextArrowAnimation 800ms 1 forwards;
-  animation-delay: 850ms;
+  animation: nextArrowAnimation var(--pointerAnimationDuration) 1 forwards;
+  animation-delay: var(--nodeAnimationDuration);
 }
 
 .node-arrow.new-node-arrow {
-  animation: newArrowAnimation 800ms 1;
-  animation-delay: 850ms;
+  animation: newArrowAnimation var(--pointerAnimationDuration) 1 forwards;
+  animation-delay: var(--nodeAnimationDuration);
 }
 
 .node-data.remove-node, 
@@ -247,9 +250,10 @@ input {
   width: 250px;
   transform: translate(-100%);
   transition: transform 1000ms;
+  z-index: 100;
 }
 
-.settings.show {
+body.show-menu .settings {
   transform: translate(0);
 }
 

@@ -1,11 +1,15 @@
+import {setAnimationsDurations} from './settings.js'
 
 export {nextNodeAnimation, newNodeAnimation, setNodeAnimation};
 
-const linkedListContainer = document.getElementById("linked-list-container")
+const linkedListContainer = document.getElementById("linked-list-container");
+
+//TODO: Refactor pass the animation duration to the animation function. 
 
 function nextNodeAnimation(nodeContainer) {
   let nodeData = nodeContainer.querySelector(".node-data");
   let nodeArrow = nodeContainer.querySelector(".node-arrow");
+  setAnimationsDurations();
 
   nodeData.classList.remove("next-node-data");
   nodeArrow.classList.remove("next-node-arrow");
@@ -20,6 +24,7 @@ function nextNodeAnimation(nodeContainer) {
 function newNodeAnimation(nodeContainer) {
   let nodeData = nodeContainer.querySelector(".node-data");
   let nodeArrow = nodeContainer.querySelector(".node-arrow");
+  let durations = setAnimationsDurations();
 
   nodeData.classList.add("new-node-data");
   nodeArrow.classList.add("new-node-arrow");
@@ -29,7 +34,7 @@ function newNodeAnimation(nodeContainer) {
     nodeData.classList.remove("new-node-data");
     nodeArrow.classList.remove("new-node-arrow");
     nodeArrow.style.setProperty("opacity", "1");
-  }, 1650);
+  }, durations.nodeAnimationDuration + durations.nodeAnimationDuration);
 }
 
 // Set Animation
@@ -56,8 +61,8 @@ export function insertNodeAnimation(previousNode, nodeContainer) {
   let nodeArrow = nodeContainer.querySelector(".node-arrow");
   nodeData.classList.add("new-node-data");
   nodeArrow.classList.add("new-node-arrow");
+  setAnimationsDurations();
 
-  // previousNode.style.setProperty("transform", "translate(189px)");
 
   let aux = previousNode; 
   while (aux != null) {

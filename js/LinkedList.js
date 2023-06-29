@@ -1,4 +1,5 @@
 import {nextNodeAnimation, newNodeAnimation, setNodeAnimation, insertNodeAnimation, removeNodeAnimation} from './animations.js'
+import {getAnimationsDurations} from './settings.js' 
 export {LinkedList, Node};
 
 class Node {
@@ -11,12 +12,15 @@ class Node {
 class LinkedList {
 
   constructor() {
+    this.durations = getAnimationsDurations();
     this.first = null;
     this.size = 0;
   }
 
   add(newNode) {
     let aux = this.first; 
+    let animationDuration = this.durations.nodeAnimationDuration + this.durations.pointerAnimationDuration;
+    console.log(animationDuration);
     if (aux == null) {
       this.first = newNode;
       this.size++;
@@ -26,7 +30,7 @@ class LinkedList {
 
     let i = 0;
     while (aux.next != null) {
-      setTimeout(nextNodeAnimation, 1660 * i, aux);
+      setTimeout(nextNodeAnimation, animationDuration * i, aux);
       aux = aux.next; 
       i++;
     }
@@ -34,8 +38,8 @@ class LinkedList {
     setTimeout(() => {
       aux.next = newNode;
       nextNodeAnimation(aux);
-      setTimeout(() => newNodeAnimation(newNode), 1650); // 800 + 850 = 1650
-    }, (this.length() - 1) * 1660);
+      setTimeout(() => newNodeAnimation(newNode), animationDuration);
+    }, (this.length() - 1) * animationDuration);
     
     this.size++
     return true;
@@ -44,6 +48,7 @@ class LinkedList {
   insert(index, newNode) {
     let previous = this.first; 
     let current = previous.next;
+    let animationDuration = this.durations.nodeAnimationDuration + this.durations.pointerAnimationDuration;
     if (index == 0) {
       let aux = this.first;
       newNode.next = this.first;
@@ -62,7 +67,7 @@ class LinkedList {
         setTimeout(insertNodeAnimation, 1660 * pos, current, newNode);
         return true;
       }
-      setTimeout(nextNodeAnimation, 1660 * pos, current);
+      setTimeout(nextNodeAnimation, animationDuration * pos, current);
       pos++;
       previous = current; 
       current = current.next; 
@@ -77,6 +82,7 @@ class LinkedList {
   set(index, data) {
     let previous = this.first;
     let current = previous.next;
+    let animationDuration = this.durations.nodeAnimationDuration + this.durations.pointerAnimationDuration;
     if (index == 0) {
       setNodeAnimation(this.first, data);
       return true;
@@ -87,10 +93,10 @@ class LinkedList {
       if (pos == index) {
         setTimeout(() => {
           setNodeAnimation(current, data)
-        }, pos * 1660);
+        }, animationDuration * pos);
         return;
       }
-      setTimeout(nextNodeAnimation, 1660 * pos, current);
+      setTimeout(nextNodeAnimation, animationDuration * pos, current);
       pos++;
       previous = current; 
       current = current.next;

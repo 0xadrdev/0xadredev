@@ -8,11 +8,12 @@
   <script type="module" src="js/options.js" defer="defer"></script>
   <script type="module" src="js/LinkedList.js" defer="defer"></script>
   <script type="module" src="js/animations.js" defer="defer"></script>
+  <script type="module" src="js/settings.js" defer="defer"></script>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
-<body>
+<body id="body">
   <section class="header">
     <div class="container container-flex">
       <i class="fa-solid fa-bars" id="btn-menu"></i>
@@ -66,13 +67,13 @@
     </div>
     <div class="settings-inputs">
       <label for="node-input">Node Animation Speed: </label>
-      <input type="number" class="setting-input" placeholder="Milliseconds" id="node-animation-input">
+      <input type="number" class="setting-input" placeholder="Milliseconds" value="800" id="node-input">
       <label for="pointer-speed">Pointer Animation Speed</label>
-      <input type="number" class="setting-input" placeholder="Milliseconds" id="pointer-input">
+      <input type="number" class="setting-input" placeholder="Milliseconds" value="800" id="pointer-input">
       <label for="delete-input">Delete Animation Speed</label>
-      <input type="number" class="setting-input" placeholder="Milliseconds" id="delete-input">
+      <input type="number" class="setting-input" placeholder="Milliseconds" value="800" id="delete-input">
     </div>
-    <button class="setting-btn">Save</button>
+    <button class="setting-btn" id="btn-settings-save">Save</button>
   </div>
 </body>
 </html>

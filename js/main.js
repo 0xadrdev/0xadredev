@@ -3,15 +3,8 @@ import { LinkedList } from "./LinkedList.js";
 // Create the list. 
 
 const errorContainer = document.getElementById("error");
-const settingsContainer = document.getElementById("settings");
-const showSettingsButton = document.getElementById("btn-menu");
-const closeSettingsButton = document.getElementById("btn-settings");
-const saveSettingsButton = document.getElementById("btn-settings-save");
 
 let linkedList = new LinkedList();
-
-showSettingsButton.onclick = () => settingsContainer.classList.toggle("show");
-closeSettingsButton.onclick = () => settingsContainer.classList.toggle("show");
 
 function createNode(data) {
   let newNodeContainer = Object.assign(document.createElement("div"), {className: "node-container", next: null});
