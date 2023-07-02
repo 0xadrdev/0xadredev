@@ -12,157 +12,137 @@ class Node {
 class LinkedList {
 
   constructor() {
-    this.durations = getAnimationsDurations();
     this.first = null;
     this.size = 0;
   }
 
   add(newNode) {
     let aux = this.first; 
-    let animationDuration = this.durations.nodeAnimationDuration + this.durations.pointerAnimationDuration;
-    console.log(animationDuration);
-    if (aux == null) {
-      this.first = newNode;
-      this.size++;
-      newNodeAnimation(this.first);
-      return true; 
-    }
-
-    let i = 0;
-    while (aux.next != null) {
-      setTimeout(nextNodeAnimation, animationDuration * i, aux);
-      aux = aux.next; 
-      i++;
-    }
-
-    setTimeout(() => {
-      aux.next = newNode;
+    let durations = getAnimationsDurations();
+    let animationDuration = durations.nodeAnimationDuration + durations.pointerAnimationDuration + 10;
+    let add = () => {
+      if (this.first == null) {
+        this.first = newNode;
+        newNodeAnimation(newNode);
+        return true;
+      }
       nextNodeAnimation(aux);
-      setTimeout(() => newNodeAnimation(newNode), animationDuration);
-    }, (this.length() - 1) * animationDuration);
-    
-    this.size++
-    return true;
+      if (aux.next == null) {
+        aux.next = newNode;
+        setTimeout(newNodeAnimation, animationDuration, newNode);
+        return true;
+      }
+      setTimeout(add, animationDuration);
+      aux = aux.next; 
+    }
+    setTimeout(add, 0);
+    this.size++;
   }
 
   insert(index, newNode) {
-    let previous = this.first; 
-    let current = previous.next;
-    let animationDuration = this.durations.nodeAnimationDuration + this.durations.pointerAnimationDuration;
-    if (index == 0) {
-      let aux = this.first;
-      newNode.next = this.first;
-      this.first = newNode;
-      this.size++;
-      insertNodeAnimation(aux, newNode);
-      return true;
-    }
-    let pos = 1;
-    nextNodeAnimation(this.first);
-    while (current != null) {
+    let previous = null; 
+    let current = this.first;
+    let durations = getAnimationsDurations();
+    let animationDuration = durations.nodeAnimationDuration + durations.pointerAnimationDuration;
+    let pos = 0;
+    let insert = () => {
+      if (current == null) return;
       if (index == pos) {
-        previous.next = newNode;
-        newNode.next = current;
+        if (index == 0) {
+          newNode.next = this.first; 
+          this.first = newNode;
+        } else {
+          previous.next = newNode;
+          newNode.next = current;
+        }
+        insertNodeAnimation(current, newNode);
         this.size++;
-        setTimeout(insertNodeAnimation, 1660 * pos, current, newNode);
         return true;
       }
-      setTimeout(nextNodeAnimation, animationDuration * pos, current);
       pos++;
+      nextNodeAnimation(current);
       previous = current; 
       current = current.next; 
+      setTimeout(insert, animationDuration);
     }
-    if (pos == index) {
-      previous.next = newNode;
-      this.size++;
-    }
+    setTimeout(insert, 0);
     return false;
   }
 
   set(index, data) {
-    let previous = this.first;
-    let current = previous.next;
-    let animationDuration = this.durations.nodeAnimationDuration + this.durations.pointerAnimationDuration;
-    if (index == 0) {
-      setNodeAnimation(this.first, data);
-      return true;
-    }
-    let pos = 1;
-    nextNodeAnimation(this.first);
-    while (current != null) {
-      if (pos == index) {
-        setTimeout(() => {
-          setNodeAnimation(current, data)
-        }, animationDuration * pos);
-        return;
-      }
-      setTimeout(nextNodeAnimation, animationDuration * pos, current);
+    let previous = null;
+    let current = this.first;
+    let durations = getAnimationsDurations();
+    let animationDuration = durations.nodeAnimationDuration + durations.pointerAnimationDuration;
+    let pos = 0;
+    let set = () => {
+      if (current == null) return;
+      if (pos == index) return setNodeAnimation(current, data);
       pos++;
+      nextNodeAnimation(current);
       previous = current; 
       current = current.next;
+      setTimeout(set, animationDuration);
     }
+    setTimeout(set, 0);
     return false;
   }
 
   removeAtIndex(index) {
-    let previous = this.first; 
-    let current = previous.next;
-    if (index == 0) {
-      removeNodeAnimation(this.first);
-      this.first = this.first.next;
-      this.size--;
-      return true;
-    }
-    let pos = 1; 
-    nextNodeAnimation(this.first);
-    while (current != null) {
+    let previous = null; 
+    let current = this.first;
+    let durations = getAnimationsDurations();
+    let animationDuration = 0;
+    let pos = 0;
+    let remove = () => {
+      if (current == null) return;
       if (pos == index) {
-        setTimeout(removeNodeAnimation, pos * 1660, current);
-        previous.next = current.next;
+        if (pos == 0) {
+          this.first = this.first.next;
+        } else {
+          previous.next = current.next;
+        }
         this.size--;
+        removeNodeAnimation(current);
         return true;
       }
-      setTimeout(nextNodeAnimation, 1660 * pos, current);
       pos++;
+      nextNodeAnimation(current);
       previous = current;
       current = current.next;
+      animationDuration = durations.nodeAnimationDuration + durations.pointerAnimationDuration;
+      setTimeout(remove, animationDuration);
     }
+    setTimeout(remove, animationDuration);
     return false;
   }
 
   remove(data) {
-    let previous = this.first;
-    let current = previous.next;
-    if (this.getData(previous) == data) {
-      removeNodeAnimation(this.first);
-      this.first = this.first.next;
-      this.size--;
-    } else {
-      nextNodeAnimation(this.first);
-    }
-    let pos = 1;
-    while (current != null) {
+    let previous = null;
+    let current = this.first;
+    let durations = getAnimationsDurations();
+    let animationDuration = 0;
+    let remove = () => {
+      if (current == null) return;
       if (this.getData(current) == data) {
         if (current == this.first) {
-          setTimeout(current => {
-            this.first = current.next;
-          }, pos * 1660, current);
+          this.first = current.next;
         } else {
-          setTimeout((previous, current) => {
-            previous.next = current.next; 
-          }, pos * 1660, previous, current);
+          previous.next = current.next; 
         }
-        setTimeout(removeNodeAnimation, pos * 1660, current);
+        removeNodeAnimation(current);
+        animationDuration = durations.pointerAnimationDuration + durations.deleteAnimationDuration;
         current = current.next;
         this.size--;
       } else {
-        setTimeout(nextNodeAnimation, 1660 * pos, current);
+        nextNodeAnimation(current);
+        animationDuration = durations.pointerAnimationDuration + durations.nodeAnimationDuration;
         previous = current; 
         current = current.next;
       }
-      pos++;
+      setTimeout(remove, animationDuration);
     }
-    return false;
+    setTimeout(remove, animationDuration);
   }
 
   clear() {
@@ -199,24 +179,3 @@ class LinkedList {
     return s;
   }
 }
-
-
-
-// let lista = new LinkedList();
-
-// console.log(lista.toString())
-
-// let nuevoNodo = new Node(5);
-// lista.add(nuevoNodo);
-
-// nuevoNodo = new Node(3);
-// lista.add(nuevoNodo);
-
-// nuevoNodo = new Node(2);
-// lista.add(nuevoNodo);
-
-// nuevoNodo = new Node(1);
-// lista.insert(3, nuevoNodo);
-
-// console.log(lista.toString());
-

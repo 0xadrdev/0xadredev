@@ -27,6 +27,7 @@ export function setError(errorText) {
 }
 
 export function addElement(data) {
+  console.log(linkedList);
   if (data.trim() == "") return setError("Data must be a number. ");
   removeError();
   let newNode = createNode(data); 

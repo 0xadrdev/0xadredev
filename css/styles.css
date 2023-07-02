@@ -70,7 +70,6 @@ input {
 .linked-list {
   display: flex;
   align-items: center;
-  /* margin: 40px 0; */
   padding: 30px 20px;
 }
 
@@ -78,8 +77,15 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* transform: translate(0);
-  transition: transform 500ms; */
+}
+
+.node-container.translate {
+  animation: move var(--pointerAnimationDuration) 1 backwards;
+}
+
+.node-container.translate-reverse {
+  /* animation: move-reverse 1660ms 1 forwards; */
+  animation: move-reverse var(--pointerAnimationDuration) 1 forwards;
 }
 
 .node-data {
@@ -131,7 +137,8 @@ input {
 
 .node-data.remove-node, 
 .node-arrow.remove-node {
-  animation: removeNodeAnimation 1000ms 1 forwards;
+  /* animation: removeNodeAnimation 1660ms 1 forwards; */
+  animation: removeNodeAnimation var(--deleteAnimationDuration) 1 forwards;
 }
 
 /* Options */

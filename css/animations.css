@@ -123,3 +123,27 @@
     transform: scale(1);
   }
 }
+
+/* Insert Animation */
+
+@keyframes move {
+  0% {
+    transform: translate(0);
+  }
+
+  100% {
+    transform: translate(189px);
+  }
+}
+
+/* Remove Animation */
+
+@keyframes move-reverse {
+  0% {
+    transform: translate(189px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
+}

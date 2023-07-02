@@ -4,21 +4,19 @@ export {nextNodeAnimation, newNodeAnimation, setNodeAnimation};
 
 const linkedListContainer = document.getElementById("linked-list-container");
 
-//TODO: Refactor pass the animation duration to the animation function. 
-
 function nextNodeAnimation(nodeContainer) {
   let nodeData = nodeContainer.querySelector(".node-data");
   let nodeArrow = nodeContainer.querySelector(".node-arrow");
+  console.log(nodeContainer);
+
   setAnimationsDurations();
 
   nodeData.classList.remove("next-node-data");
   nodeArrow.classList.remove("next-node-arrow");
-  
   setTimeout(() => {
     nodeData.classList.add("next-node-data");
     nodeArrow.classList.add("next-node-arrow");
-  }, 100)
-
+  }, 10);
 }
 
 function newNodeAnimation(nodeContainer) {
@@ -34,7 +32,7 @@ function newNodeAnimation(nodeContainer) {
     nodeData.classList.remove("new-node-data");
     nodeArrow.classList.remove("new-node-arrow");
     nodeArrow.style.setProperty("opacity", "1");
-  }, durations.nodeAnimationDuration + durations.nodeAnimationDuration);
+  }, durations.nodeAnimationDuration + durations.pointerAnimationDuration);
 }
 
 // Set Animation
@@ -43,6 +41,7 @@ function setNodeAnimation(nodeContainer, data) {
   let newDataSpan = Object.assign(document.createElement("span"), {className: "data show-data", innerText: data});
   let nodeData = nodeContainer.querySelector(".node-data");
   let dataSpan = nodeContainer.querySelector(".data");
+
   dataSpan.classList.add("remove-data");
   setTimeout(() => {
     dataSpan.remove();
@@ -57,58 +56,53 @@ function setNodeAnimation(nodeContainer, data) {
 // Insert Animation 
 
 export function insertNodeAnimation(previousNode, nodeContainer) {
+  let durations = setAnimationsDurations();
+  let animationDuration = durations.pointerAnimationDuration;
   let nodeData = nodeContainer.querySelector(".node-data");
   let nodeArrow = nodeContainer.querySelector(".node-arrow");
+
   nodeData.classList.add("new-node-data");
   nodeArrow.classList.add("new-node-arrow");
-  setAnimationsDurations();
-
 
   let aux = previousNode; 
   while (aux != null) {
-    aux.style.setProperty("transition", "transform 500ms");
-    aux.style.setProperty("transform", "translate(189px)");
+    aux.classList.add("translate");
+    setTimeout(aux => aux.classList.remove("translate"), animationDuration, aux);
     aux = aux.next;
   } 
-  aux = previousNode;
+
   setTimeout(() => {
-    while (aux != null) {
-      aux.style.setProperty("transition", "none");
-      aux.style.setProperty("transform", "translate(0)");
-      aux = aux.next;
-    } 
     linkedListContainer.insertBefore(nodeContainer, previousNode);
-  }, 500);
+  }, animationDuration);
+
+  animationDuration = (animationDuration * 2) + durations.nodeAnimationDuration;
 
   setTimeout(() => {
     nodeData.classList.remove("new-node-data");
     nodeArrow.classList.remove("new-node-arrow");
     nodeArrow.style.setProperty("opacity", "1");
-  }, 1650 + 500);
+  }, animationDuration);
 }
 
 // Remove Animation 
 
 export function removeNodeAnimation(nodeContainer) {
   let aux = nodeContainer.next;
+  let durations = setAnimationsDurations();
+  let animationDuration = durations.deleteAnimationDuration;
+  // let animationDuration = 1660;
   let nodeData = nodeContainer.querySelector(".node-data");
   let nodeArrow = nodeContainer.querySelector(".node-arrow");
+
   nodeData.classList.add("remove-node");
   nodeArrow.classList.add("remove-node");
-  setTimeout(() => nodeContainer.remove(), 1000);
+
   setTimeout(() => {
     while (aux != null) {
-      aux.style.setProperty("transition", "none");
-      aux.style.setProperty("transform", "translate(189px)");
+      aux.classList.add("translate-reverse");
+      setTimeout(aux => aux.classList.remove("translate-reverse"), durations.pointerAnimationDuration, aux);
       aux = aux.next;
     }
-  }, 1000);
-  setTimeout(() => {
-    aux = nodeContainer.next;
-    while (aux != null) {
-      aux.style.setProperty("transition", "transform 500ms");
-      aux.style.setProperty("transform", "translate(0)");
-      aux = aux.next;
-    }
-  }, 1050);
+  }, animationDuration);
+  setTimeout(() => nodeContainer.remove(), animationDuration);
 } 

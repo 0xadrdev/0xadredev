@@ -2,6 +2,7 @@ const settingsContainer = document.getElementById("settings");
 const showSettingsButton = document.getElementById("btn-menu");
 const closeSettingsButton = document.getElementById("btn-settings");
 const saveSettingsButton = document.getElementById("btn-settings-save");
+const menuMessage = document.getElementById("menu-text");
 const bodyElement = document.getElementById("body");
 const rootElement = document.querySelector(":root");
 
@@ -17,7 +18,7 @@ closeSettingsButton.onclick = () => {
 
 saveSettingsButton.onclick = () => {
   bodyElement.classList.toggle("show-menu");
-  durations = getAnimationsDurations();
+  setAnimationsDurations();
 }
 
 export function getAnimationsDurations() {
@@ -28,9 +29,9 @@ export function getAnimationsDurations() {
 }
 
 export function setAnimationsDurations() {
-  console.log("ENTRO");
   durations = getAnimationsDurations();
   rootElement.style.setProperty("--nodeAnimationDuration", `${durations.nodeAnimationDuration}ms`);
   rootElement.style.setProperty("--pointerAnimationDuration", `${durations.pointerAnimationDuration}ms`);
+  rootElement.style.setProperty("--deleteAnimationDuration", `${durations.deleteAnimationDuration}ms`);
   return durations;
 }
