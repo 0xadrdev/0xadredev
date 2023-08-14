@@ -70,7 +70,6 @@ class LinkedList {
   }
 
   set(index, data) {
-    let previous = null;
     let current = this.first;
     let durations = getAnimationsDurations();
     let animationDuration = durations.nodeAnimationDuration + durations.pointerAnimationDuration;
@@ -80,7 +79,6 @@ class LinkedList {
       if (pos == index) return setNodeAnimation(current, data);
       pos++;
       nextNodeAnimation(current);
-      previous = current; 
       current = current.next;
       setTimeout(set, animationDuration);
     }
@@ -162,7 +160,6 @@ class LinkedList {
   toConsole() {
     let aux = this.first; 
     while (aux != null) {
-      console.log(aux);
       aux = aux.next;
     }
   }

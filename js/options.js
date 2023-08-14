@@ -56,9 +56,6 @@ removeButtonIcon.addEventListener("click", e => {
   });
 
 removeButton.addEventListener("click", e => {
-  let removeContainer = removeButton.parentElement;
-  let insertIndexInput = removeContainer.querySelector("#index-input");
-  let insertDataInput = removeContainer.querySelector("#data-input");
   if (!removeIndexInput.offsetParent && !removeDataInput.offsetParent) {
     setError("You must choose an option to remove nodes. ")
   } else if (removeIndexInput.offsetParent) {
