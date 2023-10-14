@@ -111,10 +111,6 @@ input {
   animation: newNodeAnimation var(--nodeAnimationDuration) 1;
 }
 
-.node-data.new-node-data {
-  animation: newNodeAnimation var(--nodeAnimationDuration) 1;
-}
-
 .node-data .data.remove-data {
   animation: removeNodeDataAnimation 1000ms 1 forwards;
 }
@@ -129,8 +125,6 @@ input {
   position: relative;
   z-index: -100;
   opacity: 0;
-  /* opacity: 1;
-  transform: translate(-150%); */
 }
 
 .node-container.next-node .node-arrow {
@@ -139,11 +133,6 @@ input {
 }
 
 .node-container.new-node .node-arrow {
-  animation: newArrowAnimation var(--pointerAnimationDuration) 1 forwards;
-  animation-delay: var(--nodeAnimationDuration);
-}
-
-.node-arrow.new-node-arrow {
   animation: newArrowAnimation var(--pointerAnimationDuration) 1 forwards;
   animation-delay: var(--nodeAnimationDuration);
 }

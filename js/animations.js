@@ -40,52 +40,42 @@ function setNodeAnimation(nodeContainer, data) {
   let dataSpan = nodeContainer.querySelector(".data");
 
   dataSpan.classList.add("remove-data");
-
+  
   return new Promise(resolve => {
-    setTimeout(() => {
-      dataSpan.remove();
-      nodeData.appendChild(newDataSpan);
-    }, 1000);
-    setTimeout(() => {
-      newDataSpan.style.setProperty("transform", "scale(1)");
-      newDataSpan.classList.remove("show-data");
-      resolve();
-    }, 2000);
+    nodeContainer.onanimationend = e => {
+      if (e.animationName == "removeNodeDataAnimation") {
+        dataSpan.remove();
+        nodeData.appendChild(newDataSpan);
+      } else {
+        newDataSpan.classList.remove("show-data");
+        resolve();
+      }
+    }
   });
-
 }
 
 // Insert Animation 
 
 export function insertNodeAnimation(previousNode, nodeContainer) {
-  let durations = setAnimationsDurations();
-  let animationDuration = durations.pointerAnimationDuration;
-  let nodeData = nodeContainer.querySelector(".node-data");
-  let nodeArrow = nodeContainer.querySelector(".node-arrow");
-
-  nodeData.classList.add("new-node-data");
-  nodeArrow.classList.add("new-node-arrow");
-
-  let aux = previousNode; 
-  while (aux != null) {
-    aux.classList.add("translate");
-    setTimeout(aux => aux.classList.remove("translate"), animationDuration, aux);
-    aux = aux.next;
-  } 
-
-  setTimeout(() => {
-    linkedListContainer.insertBefore(nodeContainer, previousNode);
-  }, animationDuration);
-
-  animationDuration = (animationDuration * 2) + durations.nodeAnimationDuration;
-
   return new Promise(resolve => {
-    setTimeout(() => {
-      nodeData.classList.remove("new-node-data");
-      nodeArrow.classList.remove("new-node-arrow");
-      nodeArrow.style.setProperty("opacity", "1");
-      resolve();
-    }, animationDuration);
+    nodeContainer.classList.add("new-node");
+    nodeContainer.onanimationend = e => {
+      if (e.animationName == "newArrowAnimation") {
+        nodeContainer.classList.remove("new-node");
+        nodeContainer.children[1].style.setProperty("opacity", "1");
+        resolve();
+      }
+    }
+    
+    let aux = previousNode; 
+    while (aux != null) {
+      aux.classList.add("translate");
+      aux.onanimationend = e => {
+        e.target.classList.remove("translate");
+        linkedListContainer.insertBefore(nodeContainer, previousNode);
+      }
+      aux = aux.next;
+    } 
   });
 }
 
