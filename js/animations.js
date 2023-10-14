@@ -8,7 +8,7 @@ function nextNodeAnimation(nodeContainer) {
   let nodeData = nodeContainer.querySelector(".node-data");
   let nodeArrow = nodeContainer.querySelector(".node-arrow");
 
-  setAnimationsDurations();
+  let durations = setAnimationsDurations();
 
   nodeData.classList.remove("next-node-data");
   nodeArrow.classList.remove("next-node-arrow");
@@ -16,6 +16,11 @@ function nextNodeAnimation(nodeContainer) {
     nodeData.classList.add("next-node-data");
     nodeArrow.classList.add("next-node-arrow");
   }, 10);
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve()
+    }, durations.pointerAnimationDuration + durations.nodeAnimationDuration);
+  })
 }
 
 function newNodeAnimation(nodeContainer) {
@@ -27,11 +32,14 @@ function newNodeAnimation(nodeContainer) {
   nodeArrow.classList.add("new-node-arrow");
   linkedListContainer.appendChild(nodeContainer);
 
-  setTimeout(() => {
-    nodeData.classList.remove("new-node-data");
-    nodeArrow.classList.remove("new-node-arrow");
-    nodeArrow.style.setProperty("opacity", "1");
-  }, durations.nodeAnimationDuration + durations.pointerAnimationDuration);
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      nodeData.classList.remove("new-node-data");
+      nodeArrow.classList.remove("new-node-arrow");
+      nodeArrow.style.setProperty("opacity", "1");
+      resolve();
+    }, durations.nodeAnimationDuration + durations.pointerAnimationDuration);
+  }) 
 }
 
 // Set Animation

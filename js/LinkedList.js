@@ -16,27 +16,26 @@ class LinkedList {
     this.size = 0;
   }
 
-  add(newNode) {
+  async add(newNode) {
     let aux = this.first; 
-    let durations = getAnimationsDurations();
-    let animationDuration = durations.nodeAnimationDuration + durations.pointerAnimationDuration + 10;
-    let add = () => {
-      if (this.first == null) {
-        this.first = newNode;
-        newNodeAnimation(newNode);
-        return true;
-      }
-      nextNodeAnimation(aux);
-      if (aux.next == null) {
-        aux.next = newNode;
-        setTimeout(newNodeAnimation, animationDuration, newNode);
-        return true;
-      }
-      setTimeout(add, animationDuration);
-      aux = aux.next; 
+
+    if (aux == null) {
+      this.first = newNode;
+      await newNodeAnimation(newNode);
+      this.size++;
+      return true;
     }
-    setTimeout(add, 0);
+
+    while (aux.next != null) {
+      await nextNodeAnimation(aux);
+      aux = aux.next;
+    }
+
+    aux.next = newNode;
+    await nextNodeAnimation(aux);
+    await newNodeAnimation(newNode);
     this.size++;
+    return true;
   }
 
   insert(index, newNode) {
