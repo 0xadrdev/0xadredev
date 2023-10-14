@@ -38,15 +38,15 @@ class LinkedList {
     return true;
   }
 
-  insert(index, newNode) {
+  async insert(index, newNode) {
+    let pos = 0;
     let previous = null; 
     let current = this.first;
-    let durations = getAnimationsDurations();
-    let animationDuration = durations.nodeAnimationDuration + durations.pointerAnimationDuration;
-    let pos = 0;
-    let insert = () => {
-      if (current == null) return;
-      if (index == pos) {
+
+    if (current == null) return false;
+
+    while (current != null) {
+      if (pos == index) {
         if (index == 0) {
           newNode.next = this.first; 
           this.first = newNode;
@@ -54,17 +54,15 @@ class LinkedList {
           previous.next = newNode;
           newNode.next = current;
         }
-        insertNodeAnimation(current, newNode);
+        await insertNodeAnimation(current, newNode);
         this.size++;
         return true;
       }
-      pos++;
-      nextNodeAnimation(current);
+      await nextNodeAnimation(current);
       previous = current; 
-      current = current.next; 
-      setTimeout(insert, animationDuration);
+      current = current.next;
+      pos++;
     }
-    setTimeout(insert, 0);
     return false;
   }
   
@@ -77,7 +75,6 @@ class LinkedList {
     while(current != null) {
       if (pos == index) {
         await setNodeAnimation(current, data);
-      console.log("...............")
         return true;
       }
       await nextNodeAnimation(current);

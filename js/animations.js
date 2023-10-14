@@ -91,11 +91,14 @@ export function insertNodeAnimation(previousNode, nodeContainer) {
 
   animationDuration = (animationDuration * 2) + durations.nodeAnimationDuration;
 
-  setTimeout(() => {
-    nodeData.classList.remove("new-node-data");
-    nodeArrow.classList.remove("new-node-arrow");
-    nodeArrow.style.setProperty("opacity", "1");
-  }, animationDuration);
+  return new Promise(resolve => {
+    setTimeout(() => {
+      nodeData.classList.remove("new-node-data");
+      nodeArrow.classList.remove("new-node-arrow");
+      nodeArrow.style.setProperty("opacity", "1");
+      resolve();
+    }, animationDuration);
+  });
 }
 
 // Remove Animation 
