@@ -107,7 +107,6 @@ export function removeNodeAnimation(nodeContainer) {
   let aux = nodeContainer.next;
   let durations = setAnimationsDurations();
   let animationDuration = durations.deleteAnimationDuration;
-  // let animationDuration = 1660;
   let nodeData = nodeContainer.querySelector(".node-data");
   let nodeArrow = nodeContainer.querySelector(".node-arrow");
 
@@ -121,5 +120,12 @@ export function removeNodeAnimation(nodeContainer) {
       aux = aux.next;
     }
   }, animationDuration);
-  setTimeout(() => nodeContainer.remove(), animationDuration);
+
+  return new Promise(resolve => {
+    setTimeout(() => {
+      nodeContainer.remove()
+      // resolve();  
+    }, animationDuration);
+    setTimeout(resolve, animationDuration + durations.pointerAnimationDuration)
+  })
 } 

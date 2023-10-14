@@ -43,8 +43,6 @@ class LinkedList {
     let previous = null; 
     let current = this.first;
 
-    if (current == null) return false;
-
     while (current != null) {
       if (pos == index) {
         if (index == 0) {
@@ -70,8 +68,6 @@ class LinkedList {
     let pos = 0;
     let current = this.first;
 
-    if (current == null) return false;
-    
     while(current != null) {
       if (pos == index) {
         await setNodeAnimation(current, data);
@@ -85,14 +81,12 @@ class LinkedList {
     return false;
   }
 
-  removeAtIndex(index) {
+  async removeAtIndex(index) {
+    let pos = 0;
     let previous = null; 
     let current = this.first;
-    let durations = getAnimationsDurations();
-    let animationDuration = 0;
-    let pos = 0;
-    let remove = () => {
-      if (current == null) return;
+
+    while (current != null) {
       if (pos == index) {
         if (pos == 0) {
           this.first = this.first.next;
@@ -100,46 +94,41 @@ class LinkedList {
           previous.next = current.next;
         }
         this.size--;
-        removeNodeAnimation(current);
+        await removeNodeAnimation(current);
         return true;
       }
-      pos++;
-      nextNodeAnimation(current);
+
+      await nextNodeAnimation(current);
       previous = current;
       current = current.next;
-      animationDuration = durations.nodeAnimationDuration + durations.pointerAnimationDuration;
-      setTimeout(remove, animationDuration);
+      pos++;
     }
-    setTimeout(remove, animationDuration);
+
     return false;
   }
 
-  remove(data) {
+  async remove(data) {
     let previous = null;
     let current = this.first;
-    let durations = getAnimationsDurations();
-    let animationDuration = 0;
-    let remove = () => {
-      if (current == null) return;
+
+    while (current != null) {
       if (this.getData(current) == data) {
         if (current == this.first) {
           this.first = current.next;
         } else {
           previous.next = current.next; 
         }
-        removeNodeAnimation(current);
-        animationDuration = durations.pointerAnimationDuration + durations.deleteAnimationDuration;
+        await removeNodeAnimation(current);
         current = current.next;
         this.size--;
       } else {
-        nextNodeAnimation(current);
-        animationDuration = durations.pointerAnimationDuration + durations.nodeAnimationDuration;
+        await nextNodeAnimation(current);
         previous = current; 
         current = current.next;
       }
-      setTimeout(remove, animationDuration);
     }
-    setTimeout(remove, animationDuration);
+    
+    return false;
   }
 
   clear() {
