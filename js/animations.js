@@ -5,42 +5,30 @@ export {nextNodeAnimation, newNodeAnimation, setNodeAnimation};
 const linkedListContainer = document.getElementById("linked-list-container");
 
 function nextNodeAnimation(nodeContainer) {
-  let nodeData = nodeContainer.querySelector(".node-data");
-  let nodeArrow = nodeContainer.querySelector(".node-arrow");
-
-  let durations = setAnimationsDurations();
-
-  nodeData.classList.remove("next-node-data");
-  nodeArrow.classList.remove("next-node-arrow");
-
-  setTimeout(() => { // Timeout for removing the list. 
-    nodeData.classList.add("next-node-data");
-    nodeArrow.classList.add("next-node-arrow");
-  }, 10);
-
   return new Promise(resolve => {
-    setTimeout(() => {
-      resolve()
-    }, durations.pointerAnimationDuration + durations.nodeAnimationDuration);
+    nodeContainer.classList.add("next-node");
+
+    nodeContainer.onanimationend = e => {
+      if (e.animationName == "nextArrowAnimation") {
+        nodeContainer.classList.remove("next-node");
+        resolve();
+      }
+    }
   })
 }
 
 function newNodeAnimation(nodeContainer) {
-  let nodeData = nodeContainer.querySelector(".node-data");
-  let nodeArrow = nodeContainer.querySelector(".node-arrow");
-  let durations = setAnimationsDurations();
+  return new Promise(resolve => {
+    nodeContainer.classList.add("new-node");
+    linkedListContainer.appendChild(nodeContainer);
 
-  nodeData.classList.add("new-node-data");
-  nodeArrow.classList.add("new-node-arrow");
-  linkedListContainer.appendChild(nodeContainer);
-
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      nodeData.classList.remove("new-node-data");
-      nodeArrow.classList.remove("new-node-arrow");
-      nodeArrow.style.setProperty("opacity", "1");
-      resolve();
-    }, durations.nodeAnimationDuration + durations.pointerAnimationDuration);
+    nodeContainer.onanimationend = e => {
+      if (e.animationName == "newArrowAnimation") {
+        nodeContainer.classList.remove("new-node");
+        nodeContainer.children[1].style.setProperty("opacity", "1");
+        resolve();
+      }
+    }
   }) 
 }
 

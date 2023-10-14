@@ -103,8 +103,12 @@ input {
   align-items: center;
 }
 
-.node-data.next-node-data {
+.node-container.next-node .node-data {
   animation: nextNodeAnimation var(--nodeAnimationDuration) 1;
+}
+
+.node-container.new-node .node-data {
+  animation: newNodeAnimation var(--nodeAnimationDuration) 1;
 }
 
 .node-data.new-node-data {
@@ -125,10 +129,17 @@ input {
   position: relative;
   z-index: -100;
   opacity: 0;
+  /* opacity: 1;
+  transform: translate(-150%); */
 }
 
-.node-arrow.next-node-arrow {
+.node-container.next-node .node-arrow {
   animation: nextArrowAnimation var(--pointerAnimationDuration) 1 forwards;
+  animation-delay: var(--nodeAnimationDuration);
+}
+
+.node-container.new-node .node-arrow {
+  animation: newArrowAnimation var(--pointerAnimationDuration) 1 forwards;
   animation-delay: var(--nodeAnimationDuration);
 }
 
