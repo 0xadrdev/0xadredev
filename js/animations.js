@@ -12,10 +12,12 @@ function nextNodeAnimation(nodeContainer) {
 
   nodeData.classList.remove("next-node-data");
   nodeArrow.classList.remove("next-node-arrow");
-  setTimeout(() => {
+
+  setTimeout(() => { // Timeout for removing the list. 
     nodeData.classList.add("next-node-data");
     nodeArrow.classList.add("next-node-arrow");
   }, 10);
+
   return new Promise(resolve => {
     setTimeout(() => {
       resolve()
@@ -50,14 +52,19 @@ function setNodeAnimation(nodeContainer, data) {
   let dataSpan = nodeContainer.querySelector(".data");
 
   dataSpan.classList.add("remove-data");
-  setTimeout(() => {
-    dataSpan.remove();
-    nodeData.appendChild(newDataSpan);
-  }, 1000);
-  setTimeout(() => {
-    newDataSpan.style.setProperty("transform", "scale(1)");
-    newDataSpan.classList.remove("show-data");
-  }, 2000);
+
+  return new Promise(resolve => {
+    setTimeout(() => {
+      dataSpan.remove();
+      nodeData.appendChild(newDataSpan);
+    }, 1000);
+    setTimeout(() => {
+      newDataSpan.style.setProperty("transform", "scale(1)");
+      newDataSpan.classList.remove("show-data");
+      resolve();
+    }, 2000);
+  });
+
 }
 
 // Insert Animation 

@@ -67,21 +67,24 @@ class LinkedList {
     setTimeout(insert, 0);
     return false;
   }
-
-  set(index, data) {
-    let current = this.first;
-    let durations = getAnimationsDurations();
-    let animationDuration = durations.nodeAnimationDuration + durations.pointerAnimationDuration;
+  
+  async set(index, data) {
     let pos = 0;
-    let set = () => {
-      if (current == null) return;
-      if (pos == index) return setNodeAnimation(current, data);
-      pos++;
-      nextNodeAnimation(current);
+    let current = this.first;
+
+    if (current == null) return false;
+    
+    while(current != null) {
+      if (pos == index) {
+        await setNodeAnimation(current, data);
+      console.log("...............")
+        return true;
+      }
+      await nextNodeAnimation(current);
       current = current.next;
-      setTimeout(set, animationDuration);
+      pos++;
     }
-    setTimeout(set, 0);
+
     return false;
   }
 
