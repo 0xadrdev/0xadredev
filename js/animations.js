@@ -82,28 +82,22 @@ export function insertNodeAnimation(previousNode, nodeContainer) {
 // Remove Animation 
 
 export function removeNodeAnimation(nodeContainer) {
-  let aux = nodeContainer.next;
-  let durations = setAnimationsDurations();
-  let animationDuration = durations.deleteAnimationDuration;
-  let nodeData = nodeContainer.querySelector(".node-data");
-  let nodeArrow = nodeContainer.querySelector(".node-arrow");
-
-  nodeData.classList.add("remove-node");
-  nodeArrow.classList.add("remove-node");
-
-  setTimeout(() => {
-    while (aux != null) {
-      aux.classList.add("translate-reverse");
-      setTimeout(aux => aux.classList.remove("translate-reverse"), durations.pointerAnimationDuration, aux);
-      aux = aux.next;
-    }
-  }, animationDuration);
-
   return new Promise(resolve => {
-    setTimeout(() => {
-      nodeContainer.remove()
-      // resolve();  
-    }, animationDuration);
-    setTimeout(resolve, animationDuration + durations.pointerAnimationDuration)
-  })
+    let aux = nodeContainer.next;
+    nodeContainer.classList.add("remove-node");
+
+    nodeContainer.onanimationend = () => {
+      while (aux != null) {
+        aux.classList.add("translate-reverse");
+        aux.onanimationend = e => {
+          e.target.classList.remove("translate-reverse");
+          if (e.target.next == null) { 
+            resolve();
+          }
+        };
+        aux = aux.next;
+      }
+      nodeContainer.remove();
+    }
+  });
 } 

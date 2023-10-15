@@ -137,11 +137,18 @@ input {
   animation-delay: var(--nodeAnimationDuration);
 }
 
+.node-container.remove-node .node-data, 
+.node-container.remove-node .node-arrow {
+  animation: removeNodeAnimation var(--deleteAnimationDuration) 1 forwards;
+
+}
+
+/* 
 .node-data.remove-node, 
 .node-arrow.remove-node {
-  /* animation: removeNodeAnimation 1660ms 1 forwards; */
+  animation: removeNodeAnimation 1660ms 1 forwards;
   animation: removeNodeAnimation var(--deleteAnimationDuration) 1 forwards;
-}
+} */
 
 /* Options */
 
