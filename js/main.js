@@ -26,14 +26,17 @@ export function setError(errorText) {
   errorContainer.classList.add("show");
 }
 
-export function addElement(data) {
+export async function addElement(data) {
+  if (linkedList.processStarted) return setError("Wait until adding process is finished. ")
   if (data.trim() == "") return setError("Data must be a number. ");
   removeError();
   let newNode = createNode(data); 
-  linkedList.add(newNode);
+  await linkedList.add(newNode);
+  removeError();
 }
 
-export function setElement(index, data) {
+export async function setElement(index, data) {
+  if (linkedList.processStarted) return setError("Wait until setting process is finished. ")
   if (index.trim() == "") {
     return setError("Index must be a number. ");
   } else if (index < 0 || index >= linkedList.length()) {
@@ -42,10 +45,12 @@ export function setElement(index, data) {
     return setError("Data must be a number. ");
   }
   removeError();
-  linkedList.set(index, data);
+  await linkedList.set(index, data);
+  removeError();
 }
 
-export function insertElement(index, data) {
+export async function insertElement(index, data) {
+  if (linkedList.processStarted) return setError("Wait until inserting process is finished. ")
   if (index.trim() == "") {
     return setError("Index must be a number. ");
   } else if (index < 0 || index >= linkedList.length()) {
@@ -55,26 +60,31 @@ export function insertElement(index, data) {
   }
   removeError();
   let newNode = createNode(data);
-  linkedList.insert(index, newNode);
+  await linkedList.insert(index, newNode);
+  removeError();
 }
 
-export function removeElementAtIndex(index) {
+export async function removeElementAtIndex(index) {
+  if (linkedList.processStarted) return setError("Wait until removing process is finished. ")
   if (index.trim() == "") {
     return setError("Index must be a number. ");
   } else if (index < 0 || index >= linkedList.length()) {
     return setError("Index out of bounds. ");
   } 
   removeError();
-  linkedList.removeAtIndex(index);
+  await linkedList.removeAtIndex(index);
+  removeError();
 }
 
-export function removeElementsWithData(data) {
+export async function removeElementsWithData(data) {
+  if (linkedList.processStarted) return setError("Wait until removing process is finished. ")
   if (data.trim() == "") {
     return setError("Data must be a number. ");
   } else if (linkedList.length() == 0) {
     return setError("List is empty. ");
   }
   removeError();
-  linkedList.remove(data);
+  await linkedList.remove(data);
+  removeError();
 }
 

@@ -1,5 +1,3 @@
-import {setAnimationsDurations} from './settings.js'
-
 export {nextNodeAnimation, newNodeAnimation, setNodeAnimation};
 
 const linkedListContainer = document.getElementById("linked-list-container");

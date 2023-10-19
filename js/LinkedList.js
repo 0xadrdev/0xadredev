@@ -1,11 +1,11 @@
 import {nextNodeAnimation, newNodeAnimation, setNodeAnimation, insertNodeAnimation, removeNodeAnimation} from './animations.js'
-import {getAnimationsDurations} from './settings.js' 
 export {LinkedList, Node};
 
 class Node {
   constructor(data) {
     this.data = data;
     this.next = null;
+    this.processStarted = false;
   }
 }
 
@@ -16,12 +16,19 @@ class LinkedList {
     this.size = 0;
   }
 
+  getProcessStarted() {
+    return this.processStarted;
+  }
+
   async add(newNode) {
     let aux = this.first; 
+
+    this.processStarted = true;
 
     if (aux == null) {
       this.first = newNode;
       await newNodeAnimation(newNode);
+      this.processStarted = false;
       this.size++;
       return true;
     }
@@ -34,6 +41,7 @@ class LinkedList {
     aux.next = newNode;
     await nextNodeAnimation(aux);
     await newNodeAnimation(newNode);
+    this.processStarted = false;
     this.size++;
     return true;
   }
@@ -42,6 +50,8 @@ class LinkedList {
     let pos = 0;
     let previous = null; 
     let current = this.first;
+
+    this.processStarted = true;
 
     while (current != null) {
       if (pos == index) {
@@ -54,6 +64,7 @@ class LinkedList {
         }
         await insertNodeAnimation(current, newNode);
         this.size++;
+        this.processStarted = false;
         return true;
       }
       await nextNodeAnimation(current);
@@ -61,6 +72,7 @@ class LinkedList {
       current = current.next;
       pos++;
     }
+    this.processStarted = false;
     return false;
   }
   
@@ -68,16 +80,19 @@ class LinkedList {
     let pos = 0;
     let current = this.first;
 
+    this.processStarted = true;
+
     while(current != null) {
       if (pos == index) {
         await setNodeAnimation(current, data);
+        this.processStarted = false;
         return true;
       }
       await nextNodeAnimation(current);
       current = current.next;
       pos++;
     }
-
+    this.processStarted = false;
     return false;
   }
 
@@ -85,6 +100,8 @@ class LinkedList {
     let pos = 0;
     let previous = null; 
     let current = this.first;
+
+    this.processStarted = true;
 
     while (current != null) {
       if (pos == index) {
@@ -95,6 +112,7 @@ class LinkedList {
         }
         this.size--;
         await removeNodeAnimation(current);
+        this.processStarted = false;
         return true;
       }
 
@@ -103,14 +121,17 @@ class LinkedList {
       current = current.next;
       pos++;
     }
-
+    this.processStarted = false;
     return false;
   }
 
   async remove(data) {
     let previous = null;
     let current = this.first;
+    let isRemoved = false;
 
+    this.processStarted = true;
+    
     while (current != null) {
       if (this.getData(current) == data) {
         if (current == this.first) {
@@ -120,6 +141,7 @@ class LinkedList {
         }
         await removeNodeAnimation(current);
         current = current.next;
+        isRemoved = true;
         this.size--;
       } else {
         await nextNodeAnimation(current);
@@ -127,8 +149,8 @@ class LinkedList {
         current = current.next;
       }
     }
-    
-    return false;
+    this.processStarted = false;
+    return isRemoved;
   }
 
   clear() {
